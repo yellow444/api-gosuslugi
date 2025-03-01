@@ -114,7 +114,6 @@ function App() {
     const saved = localStorage.getItem('updatedAfter');
     if (saved) {
       try {
-        console.log(new Date(JSON.parse(saved)));
         return new Date(JSON.parse(saved));
       } catch (e) {
         return new Date();
@@ -395,9 +394,7 @@ function App() {
       });
       setZipSize(res.data.zip_size);
     } catch (e) {
-      if (axios.isCancel(e)) {
-        console.log('Запрос отменен:', e.message);
-      } else {
+      if (!axios.isCancel(e)) { 
         console.error('Ошибка расчёта размера архива', e);
       }
     }
@@ -828,7 +825,6 @@ function App() {
         params,
       });
       setResponseTable(res?.data?.content);
-      console.log('Запросы:', res.data);
     } catch (e) {
       if (e.response) {
         console.error('Ошибка получения запросов:', e.response.data);
@@ -878,7 +874,6 @@ function App() {
             await tx.store.put(file);
           }
           await tx.done;
-          console.log('Файлы успешно сохранены в IndexedDB.');
         })
         .catch((error) => {
           console.error('Ошибка при чтении файлов:', error);

@@ -110,7 +110,6 @@ def load_certificates() -> List[str]:
         }
         cert_ids = list(CERTIFICATES.keys())
         CURRENT_CERT_ID = cert_ids[0] if cert_ids else None
-        logger.info(f"Загружено сертификатов: {len(CERTIFICATES)}")
         return cert_ids
     except Exception as e:
         logger.exception(f"Ошибка загрузки сертификатов: {e}")
@@ -213,7 +212,6 @@ async def set_current_certificate(cert_id: str):
         raise HTTPException(
             status_code=400, detail=f"Сертификат с ID {cert_id} не найден.")
     CURRENT_CERT_ID = cert_id
-    logger.info(f"Установлен текущий сертификат с ID: {cert_id}")
     return JSONResponse(status_code=200, headers={"Access-Control-Allow-Origin": "*"})
 
 
@@ -257,7 +255,6 @@ async def access_tkn_esia(request: APIKeyRequest, client: httpx.AsyncClient = De
         res = response.json()
         if "accessTkn" in res:
             ACCESS_TKN_ESIA = res["accessTkn"]
-            logger.info(f"accessTkn_esia: {ACCESS_TKN_ESIA}")
         return res
     except httpx.HTTPStatusError as err:
         logger.exception(f"HTTPError in accessTkn_esia: {err}")
@@ -318,7 +315,6 @@ async def order_with_id(
     client: httpx.AsyncClient = Depends(get_async_client),
 ):
     global ACCESS_TKN_ESIA, SVCDEV_HOST
-    logger.info(ACCESS_TKN_ESIA)
     try:
         url = f"{SVCDEV_HOST}/api/gusmev/order/{orderId}"
         response = await client.post(
@@ -331,7 +327,6 @@ async def order_with_id(
         )
         response.raise_for_status()
         order_details = response.json()
-        logger.info(order_details)
         file_details = []
         order_obj = safe_parse_order(order_details)
         if not order_obj:
