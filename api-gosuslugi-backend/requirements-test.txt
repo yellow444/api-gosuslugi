@@ -5,5 +5,8 @@ requests
 python-dotenv
 python-multipart
 lxml
-httpx 
+httpx
+pytest
+pytest-asyncio
 pydantic
+pytest-mock

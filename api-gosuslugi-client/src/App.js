@@ -394,7 +394,7 @@ function App() {
       });
       setZipSize(res.data.zip_size);
     } catch (e) {
-      if (!axios.isCancel(e)) { 
+      if (!axios.isCancel(e)) {
         console.error('Ошибка расчёта размера архива', e);
       }
     }
@@ -432,6 +432,7 @@ function App() {
       return res.data;
     } catch (e) {
       handleError(e);
+      return [];
     }
   };
 

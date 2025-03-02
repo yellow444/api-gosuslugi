@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "ace-builds": "^1.37.4",
-    "axios": "^1.7.9",
+    "axios": "^0.27.2",
     "cra-template": "1.2.0",
     "idb": "^6.1.2",
     "jwt-decode": "^4.0.0",
@@ -15,14 +15,20 @@
     "react-datepicker": "^7.6.0",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.3.5",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "styled-components": "^6.1.14",
     "xml-formatter": "^3.6.3"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "ace-builds/webpack-resolver": "<rootDir>/src/__mocks__/ace-builds/webpack-resolver.js",
+      "file-loader\\?esModule=false!.*": "<rootDir>/src/__mocks__/fileMock.js"
+    }
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --experimental-vm-modules",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
@@ -46,6 +52,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^10.0.1",
