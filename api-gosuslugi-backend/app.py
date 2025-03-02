@@ -199,7 +199,8 @@ async def get_certificates_endpoint():
     certs = {}
     for cert_id, cert in CERTIFICATES.items():
         certs[cert_id] = parse_string_to_json(cert.SubjectName)
-    result = [{"id": cid, "subject": certs[cid].get("SN", "Unknown")} for cid in certs]
+    result = [{"id": cid, "subject": certs[cid].get(
+        "SN", "Unknown")} for cid in certs]
     return JSONResponse(content=result, headers={"Access-Control-Allow-Origin": "*"})
 
 
@@ -211,7 +212,7 @@ async def set_current_certificate(cert_id: str):
         raise HTTPException(
             status_code=400, detail=f"Сертификат с ID {cert_id} не найден.")
     CURRENT_CERT_ID = cert_id
-    return JSONResponse(content=None,status_code=200, headers={"Access-Control-Allow-Origin": "*"})
+    return JSONResponse(content=None, status_code=200, headers={"Access-Control-Allow-Origin": "*"})
 
 
 @app.post("/get_current_certificate")
